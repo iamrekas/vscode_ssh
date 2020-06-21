@@ -1,0 +1,21 @@
+language: node_js
+node_js: 14
+cache: false
+dist: 'xenial'
+before_deploy: npm run build
+deploy:
+  - provider: releases
+    token: $GITHUB_API_KEY
+    file_glob: true
+    file: dist/*
+    on:
+      repo: iamrekas/vscode_ssh
+      tags: true
+    overwrite: true
+    skip_cleanup: true
+    draft: false
+    prerelease: true
+notifications:
+  email:
+    on_success: never
+    on_failure: always
